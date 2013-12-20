@@ -4,7 +4,7 @@
 	<groupId>ch.kalyss.formation</groupId>
 	<artifactId>selenium</artifactId>
 	<version>1.0.0</version>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 	<name>Formation Kalyss SELENIUM IDE</name>
 	<description>Projet utilisé pour la formation ZBO du 23.12.2013 et 24.12.2013</description>
 
