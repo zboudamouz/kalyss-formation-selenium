@@ -1,0 +1,9 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ch.kalyss.formation</groupId>
+  <artifactId>selenium</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+  <name>Formation Kalyss SELENIUM IDE</name>
+  <description>Projet utilisé pour la formation ZBO du 23.12.2013 et 24.12.2013</description>
+</project>
