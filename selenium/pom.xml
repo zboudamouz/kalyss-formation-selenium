@@ -10,11 +10,23 @@
 
 	<dependencies>
 
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-core</artifactId>
+			<version>6.12.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+
+
 		<!-- Version de test en mode JAVA -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1 </version>
+			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -34,7 +46,7 @@
 	</dependencies>
 
 	<build>
-
+		<finalName>selenium-maven</finalName>
 
 		<plugins>
 			<plugin>
@@ -51,7 +63,7 @@
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.0</version>
+				<version>2.1</version>
 				<executions>
 					<execution>
 						<id>tomcat-run</id>
@@ -97,11 +109,10 @@
 				</executions>
 			</plugin>
 
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.5</version>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>2.16</version>
 				<configuration>
 					<excludes>
 						<exclude>**/selenium/*.java</exclude> <!-- Les tests selenium sont exclus de la phase de test -->
@@ -112,7 +123,10 @@
 						<id>surefire-integration-test</id>
 						<phase>integration-test</phase>
 						<goals>
-							<goal>test</goal> <!-- La phase integration-test va lancer les tests... -->
+							<!-- Rapport sans jouer les tests unitaires -->
+							<goal>report-only</goal>
+							<!-- Rapport sans jouer les tests unitaires -->
+							<!-- <goal>report</goal> -->
 						</goals>
 						<configuration>
 							<excludes>
