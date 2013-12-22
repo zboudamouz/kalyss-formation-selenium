@@ -33,13 +33,13 @@
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
 			<version>2.39.0</version>
-			<scope>test</scope>
+<!-- 			<scope>test</scope> -->
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-server</artifactId>
 			<version>2.39.0</version>
-			<scope>test</scope>
+<!-- 			<scope>test</scope> -->
 		</dependency>
 
 
@@ -60,86 +60,107 @@
 			</plugin>
 
 
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.1</version>
-				<executions>
-					<execution>
-						<id>tomcat-run</id>
-						<goals>
-							<goal>run-war-only</goal>
-						</goals>
-						<phase>pre-integration-test</phase>
-						<configuration>
-							<port>8080</port>
-							<fork>true</fork>
-						</configuration>
-					</execution>
-					<execution>
-						<id>tomcat-shutdown</id>
-						<goals>
-							<goal>shutdown</goal>
-						</goals>
-						<phase>post-integration-test</phase>
-					</execution>
-				</executions>
-			</plugin>
 
 
 
 			<!-- Version de test en mode HTML -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>selenium-maven-plugin</artifactId>
-				<version>2.3</version>
-				<configuration>
-					<browser>*firefox</browser>
-					<suite>src/test/selenium/TestSuite.html</suite>
-					<startURL>http://localhost:8080</startURL>
-				</configuration>
-				<executions>
-					<execution>
-						<id>run-selenium-tests</id>
-						<phase>integration-test</phase>
-						<goals>
-							<goal>selenese</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.codehaus.mojo</groupId> -->
+<!-- 				<artifactId>selenium-maven-plugin</artifactId> -->
+<!-- 				<version>2.3</version> -->
+<!-- 				<configuration> -->
+<!-- 					<browser>*firefox</browser> -->
+<!-- 					<suite>src/test/selenium/TestSuite.html</suite> -->
+<!-- 					<startURL>http://localhost:8080</startURL> -->
+<!-- 				</configuration> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<id>run-selenium-tests</id> -->
+<!-- 						<phase>integration-test</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>selenese</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 
+       
+        
+        <!-- Selenium server (default port 4444) -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>selenium-maven-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                
+                    <execution>
+                        <id>start-selenium</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start-server</goal>
+                        </goals>
+                        <configuration>
+                            <background>true</background>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>stop-selenium</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop-server</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-surefire-report-plugin</artifactId> -->
+<!-- 				<version>2.16</version> -->
+<!-- 				<configuration> -->
+<!-- 					<excludes> -->
+<!-- 						<exclude>**/selenium/*.java</exclude> Les tests selenium sont exclus de la phase de test -->
+<!-- 					</excludes> -->
+<!-- 				</configuration> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<id>surefire-integration-test</id> -->
+<!-- 						<phase>integration-test</phase> -->
+<!-- 						<goals> -->
+<!-- 							Rapport sans jouer les tests unitaires -->
+<!-- 							<goal>report-only</goal> -->
+<!-- 							Rapport sans jouer les tests unitaires -->
+<!-- 							<goal>report</goal> -->
+<!-- 						</goals> -->
+<!-- 						<configuration> -->
+<!-- 							<excludes> -->
+<!-- 								<exclude>none</exclude> -->
+<!-- 							</excludes> -->
+<!-- 							<includes> -->
+<!-- 								<include>**/selenium/*Test.java</include> ...en incluant les tests selenium -->
+<!-- 							</includes> -->
+<!-- 						</configuration> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>2.16</version>
-				<configuration>
-					<excludes>
-						<exclude>**/selenium/*.java</exclude> <!-- Les tests selenium sont exclus de la phase de test -->
-					</excludes>
-				</configuration>
-				<executions>
-					<execution>
-						<id>surefire-integration-test</id>
-						<phase>integration-test</phase>
-						<goals>
-							<!-- Rapport sans jouer les tests unitaires -->
-							<goal>report-only</goal>
-							<!-- Rapport sans jouer les tests unitaires -->
-							<!-- <goal>report</goal> -->
-						</goals>
-						<configuration>
-							<excludes>
-								<exclude>none</exclude>
-							</excludes>
-							<includes>
-								<include>**/selenium/*Test.java</include> <!-- ...en incluant les tests selenium -->
-							</includes>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.9</version>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>verify</id>
+                        <goals>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
 		</plugins>
 	</build>

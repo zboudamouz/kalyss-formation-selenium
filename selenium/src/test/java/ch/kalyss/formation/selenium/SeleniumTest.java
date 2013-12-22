@@ -1,19 +1,25 @@
 package ch.kalyss.formation.selenium;
 
-import com.thoughtworks.selenium.SeleneseTestCase;
+import junit.framework.TestCase;
 
-public class SeleniumTest extends SeleneseTestCase {
+import com.thoughtworks.selenium.DefaultSelenium;
 
-	/** {@inheritDoc} */
-	@Override
-	public void setUp() throws Exception {
-		setUp("http://www.netapsys.fr"); // délégation de la configuration à la classe parente
-	}
+public class SeleniumTest extends TestCase {
 
-	/** Ouvre la page et vérifie que le texte est bien présent. */
-	public void test() {
-		selenium.open("/"); // ouverture de la page
-		assertTrue(selenium.isTextPresent("Netapsys"));
-	}
+	protected DefaultSelenium createSeleniumClient(String url) throws Exception {
+        return new DefaultSelenium("localhost", 4444, "*firefox", url);
+    }
+    
+    public void testBaseForm() throws Exception {
+        DefaultSelenium selenium = createSeleniumClient("http://www.kalyss.com/site/");
+        selenium.start();
+        
+        selenium.open("/");
+        
+        assertTrue(selenium.isTextPresent("Accueil"));
+        assertTrue(selenium.isTextPresent("Emploi"));
+
+        selenium.stop();
+    }
 	
 }
