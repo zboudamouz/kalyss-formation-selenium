@@ -15,7 +15,7 @@ public class SeleniumTest extends TestCase {
         selenium.start();
         
         selenium.open("/");
-        
+        selenium.setSpeed("2000");
         assertTrue(selenium.isTextPresent("Accueil"));
         assertTrue(selenium.isTextPresent("Emploi"));
 
